@@ -131,6 +131,34 @@ class ActionClick(Action):
         pyautogui.click()
 
 
+class ActionWaitDuration(Action):
+    def __init__(self, durationMilliseconds, _finally=None):
+        super().__init__(_finally=_finally)
+        self.durationMilliseconds = durationMilliseconds
+
+    def _execMainAction(self):
+        time.sleep(self.durationMilliseconds/1000)
+
+
+class ActionCompound(Action):
+    def __init__(self, actionSequence: list, _finally=None):
+        super().__init__(_finally=_finally)
+        self.actionSequence = actionSequence
+
+    def _execMainAction(self):
+        for action in self.actionSequence:
+            exec(action)
+
+
+class ActionScrollMove(Action):
+    def __init__(self, scrollMove, _finally=None):
+        super().__init__(_finally=_finally)
+        self.scrollMove = scrollMove
+
+    def _execMainAction(self):
+        pyautogui.scroll(self.scrollMove)
+
+
 class ActionMouseMove(Action):
     def __init__(self, aim: PixelPosition, durationMoveMilliseconds=100, _finally=None):
         super().__init__(_finally=_finally)
