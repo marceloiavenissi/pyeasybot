@@ -48,7 +48,7 @@ class Action(object):
     def exec(action):
         action._execMainAction()
         if action._finally:
-            exec(action._finally)
+            Action.exec(action._finally)
 
     def _execMainAction(self):
         pass
@@ -147,7 +147,7 @@ class ActionCompound(Action):
 
     def _execMainAction(self):
         for action in self.actionSequence:
-            exec(action)
+            Action.exec(action)
 
 
 class ActionScrollMove(Action):
@@ -160,7 +160,7 @@ class ActionScrollMove(Action):
 
 
 class ActionMouseMove(Action):
-    def __init__(self, aim: PixelPosition, durationMoveMilliseconds=100, _finally=None):
+    def __init__(self, aim: PixelPosition, durationMoveMilliseconds=300, _finally=None):
         super().__init__(_finally=_finally)
         self.aim = aim
         self.durationMoveMilliseconds = durationMoveMilliseconds
@@ -181,7 +181,8 @@ bot = Bot(
                 position=PixelPosition(x=0, y=0),
                 color=Color(r=0, g=0, b=0),
             ),
-            action=ActionMouseMove(aim=PixelPosition(x=100, y=100)),
+            action=ActionCompound(actionSequence=[ActionMouseMove(aim=PixelPosition(x=900, y=200), _finally=ActionWaitDuration(
+                durationMilliseconds=1000, _finally=ActionScrollMove(scrollMove=3))),ActionMouseMove(aim=PixelPosition(x=200, y=900),durationMoveMilliseconds=5000)]),
         ),
     ],
     stepIntervalMilliseconds=2000,
