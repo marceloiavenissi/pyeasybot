@@ -174,6 +174,31 @@ class ActionMouseMove(Action):
         )
 
 
+class ActionMouseDragTo(Action):
+    def __init__(self, aim: PixelPosition, durationMoveMilliseconds=300, _finally=None):
+        super().__init__(_finally=_finally)
+        self.aim = aim
+        self.durationMoveMilliseconds = durationMoveMilliseconds
+
+    def _execMainAction(self):
+        pyautogui.dragTo(
+            self.aim.x,
+            self.aim.y,
+            duration=self.durationMoveMilliseconds / 1000,
+            tween=pyautogui.easeInOutQuad,
+            button='left'
+        )
+
+
+class ActionCode(Action):
+    def __init__(self, code=lambda:x,_finally=None):
+        super().__init__(_finally=_finally)
+        self.code=code
+
+    def _execMainAction(self):
+        self.code()
+
+
 bot = Bot(
     triggersAndActions=[
         TriggerAndAction(
