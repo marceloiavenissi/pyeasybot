@@ -206,16 +206,43 @@ bot = Bot(
                 position=PixelPosition(x=0, y=0),
                 color=Color(r=0, g=0, b=0),
             ),
-            action=ActionCompound(actionSequence=[ActionMouseMove(aim=PixelPosition(x=900, y=200), _finally=ActionWaitDuration(
-                durationMilliseconds=1000, _finally=ActionScrollMove(scrollMove=3))),ActionMouseMove(aim=PixelPosition(x=200, y=900),durationMoveMilliseconds=5000)]),
+            action=ActionCompound(
+                actionSequence=[
+                    ActionMouseMove(aim=PixelPosition(x=10, y=10),),
+                    ActionClick(),
+                    ActionWaitDuration(durationMilliseconds=150),
+                    ActionMouseMove(aim=PixelPosition(x=30, y=250),),
+                    ActionClick(),
+                    ActionMouseMove(aim=PixelPosition(x=1380, y=240),),
+                    ActionClick(),
+                    ActionCode(lambda: bot.stop())
+                ]
+            ),
         ),
     ],
-    stepIntervalMilliseconds=2000,
+    stepIntervalMilliseconds=300,
     builderPerception=BuilderPerception()
 )
 
 bot.run()
-
+'''
+ActionClick(),
+                    ActionMouseMove(
+                        aim=PixelPosition(x=900, y=200),
+                        _finally=ActionWaitDuration(
+                            durationMilliseconds=1000,
+                            _finally=ActionScrollMove(scrollMove=3)
+                        )
+                    ),
+                    ActionMouseMove(
+                        aim=PixelPosition(x=200, y=900),
+                        durationMoveMilliseconds=200
+                    ),
+                    ActionMouseMove(
+                        aim=PixelPosition(x=900, y=900),
+                        durationMoveMilliseconds=200
+                    )
+                    '''
 """
 def printPexel(x, y):
     time.sleep(5)
