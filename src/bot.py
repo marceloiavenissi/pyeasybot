@@ -215,7 +215,7 @@ bot = Bot(
                     ActionClick(),
                     ActionMouseMove(aim=PixelPosition(x=1380, y=240),),
                     ActionClick(),
-                    ActionCode(lambda: bot.stop())
+                    ActionCode(code=lambda: iter()),
                 ]
             ),
         ),
@@ -223,6 +223,17 @@ bot = Bot(
     stepIntervalMilliseconds=300,
     builderPerception=BuilderPerception()
 )
+
+
+n=7
+def iter():
+    global n
+    if n==0: 
+        bot.stop()
+    n = n-1
+
+
+time.sleep(1.5)
 
 bot.run()
 '''
