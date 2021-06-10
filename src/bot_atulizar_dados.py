@@ -19,6 +19,7 @@ with open('flights.csv', newline='') as csvfile:
                             ActionMouseMove(aim=PixelPosition(x=10, y=10),),
                             ActionClick(),
                             ActionWaitDuration(durationMilliseconds=150),
+                            ActionTypeAText(row[0]),
                             ActionMouseMove(aim=PixelPosition(x=30, y=250),),
                             ActionClick(),
                             ActionMouseMove(aim=PixelPosition(x=1380, y=240),),
