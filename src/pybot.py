@@ -197,3 +197,13 @@ class ActionCode(Action):
 
     def _execMainAction(self):
         self.code()
+
+
+class ActionTypeAText(Action):
+    def __init__(self, text='', _finally=None):
+        super().__init__(_finally=_finally)
+        self.text = text
+
+    def _execMainAction(self):
+        pyautogui.write(self.text)
+
