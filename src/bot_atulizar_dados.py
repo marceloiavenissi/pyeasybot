@@ -1,7 +1,9 @@
+#!/usr/bin/python3
 import csv
 from pybot import *
 
-with open('flights.csv', newline='') as csvfile:
+
+with open('data.csv', newline='') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
     time.sleep(1.5)
     for row in spamreader:
@@ -24,6 +26,7 @@ with open('flights.csv', newline='') as csvfile:
                             ActionClick(),
                             ActionMouseMove(aim=PixelPosition(x=1380, y=240),),
                             ActionClick(),
+                            ActionCode(code=bot.stop()),
                         ]
                     ),
                 ),
