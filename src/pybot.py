@@ -123,6 +123,17 @@ class TriggerCompound(Trigger):
         return True
 
 
+class TriggerConditional(Trigger):
+    def __init__(self, condition: lambda: False, trigger: Trigger):
+        self.trigger = trigger
+        self.condition = condition
+
+    def isFiring(self, perception: Perception) -> bool:
+        if self.condition() and self.trigger.isFiring(perception=perception):
+            return False
+        return True
+
+
 class ActionClick(Action):
     def __init__(self, _finally=None):
         super().__init__(_finally=_finally)
@@ -148,6 +159,17 @@ class ActionCompound(Action):
     def _execMainAction(self):
         for action in self.actionSequence:
             Action.exec(action)
+
+
+class ActionConditional(Action):
+    def __init__(self, condition: lambda: False, action: Action,  _finally=None):
+        super().__init__(_finally=_finally)
+        self.condition = condition
+        self.action = action
+
+    def _execMainAction(self):
+        if self.condition():
+            Action.exec(self.action)
 
 
 class ActionScrollMove(Action):
